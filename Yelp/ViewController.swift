@@ -8,7 +8,7 @@
 
 import UIKit
 
-class ViewController: UIViewController, UITableViewDelegate, UITableViewDataSource {
+class ViewController: UIViewController, UITableViewDelegate, UITableViewDataSource, ViewControllerFilterDelegate {
     var client: YelpClient!
     
     // You can register for Yelp API keys here: http://www.yelp.com/developers/manage_api_keys
@@ -146,5 +146,14 @@ class ViewController: UIViewController, UITableViewDelegate, UITableViewDataSour
 //        println(s)
 //        return 88
 //    }
+    
+    override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
+        var destinationViewController = segue.destinationViewController as FiltersViewController
+        destinationViewController.delegate = self
+    }
+    
+    func setConfigViewController(controller: FiltersViewController, didFinishEnteringConfig: String) -> Void {
+        println("set config", didFinishEnteringConfig)
+    }
 }
 

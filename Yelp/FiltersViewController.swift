@@ -10,7 +10,8 @@ import UIKit
 
 class FiltersViewController: UIViewController, UITableViewDelegate, UITableViewDataSource {
     @IBOutlet weak var tableView: UITableView!
-
+    var delegate: ViewControllerFilterDelegate!
+    
     // using enums triggers compilation error:
     // FiltersViewController.ConfigType is not bridged to Objective-C
     // will use strings instead
@@ -71,6 +72,13 @@ class FiltersViewController: UIViewController, UITableViewDelegate, UITableViewD
 
         tableView.delegate = self
         tableView.dataSource = self
+    }
+    
+    override func viewWillDisappear(animated: Bool) {
+        if (delegate == nil) {
+            return
+        }
+        delegate.setConfigViewController(self, didFinishEnteringConfig: "hello")
     }
 
     override func didReceiveMemoryWarning() {
