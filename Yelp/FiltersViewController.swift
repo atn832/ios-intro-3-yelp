@@ -32,7 +32,7 @@ class FiltersViewController: UIViewController, UITableViewDelegate, UITableViewD
         ConfigSection(
             header: "Price",
             content: [
-                ConfigType.Segment(["a", "b"])
+                ConfigType.Segment(["$", "$$", "$$$", "$$$$"])
             ]
         ),
         ConfigSection(
@@ -99,8 +99,16 @@ class FiltersViewController: UIViewController, UITableViewDelegate, UITableViewD
             cell = tableView.dequeueReusableCellWithIdentifier("Dropdown") as UITableViewCell
         case .Segment(let values):
             cell = tableView.dequeueReusableCellWithIdentifier("Segment") as UITableViewCell
+            var i = 0
+            for value in values {
+                (cell as SegmentTableViewCell).segment.setTitle(value, forSegmentAtIndex: i)
+                i++
+            }
         case .Switch(let title):
             cell = tableView.dequeueReusableCellWithIdentifier("Switch") as UITableViewCell
+            (cell as SwitchTableViewCell).optionName.text = title
+            (cell as SwitchTableViewCell).optionConfig.text = ""
+            
         }
         return cell as UITableViewCell
     }
