@@ -46,16 +46,16 @@
                                                     <nil key="highlightedColor"/>
                                                 </label>
                                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" verticalHuggingPriority="244" verticalCompressionResistancePriority="751" text="1. Grand Pu Bah" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="LZ3-iG-IcH">
-                                                    <rect key="frame" x="80" y="8" width="456" height="19.5"/>
+                                                    <rect key="frame" x="80" y="8" width="456" height="20"/>
                                                     <fontDescription key="fontDescription" type="boldSystem" pointSize="16"/>
                                                     <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
                                                     <nil key="highlightedColor"/>
                                                 </label>
                                                 <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="gLt-ED-HHT" userLabel="Details">
-                                                    <rect key="frame" x="80" y="35" width="512" height="53.5"/>
+                                                    <rect key="frame" x="80" y="35" width="512" height="54"/>
                                                     <subviews>
                                                         <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="245" text="3 starts" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="0Te-bv-Qrx">
-                                                            <rect key="frame" x="0.0" y="-8" width="48.5" height="21"/>
+                                                            <rect key="frame" x="0.0" y="-8" width="49" height="21"/>
                                                             <constraints>
                                                                 <constraint firstAttribute="height" relation="lessThanOrEqual" constant="21" id="3qF-0r-Ztr"/>
                                                                 <constraint firstAttribute="height" relation="greaterThanOrEqual" constant="21" id="Bd1-t4-8iL"/>
@@ -90,7 +90,7 @@
                                                             <nil key="highlightedColor"/>
                                                         </label>
                                                         <label opaque="NO" userInteractionEnabled="NO" contentMode="left" verticalHuggingPriority="246" horizontalCompressionResistancePriority="751" text="n reviews" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="6gR-fe-XX1">
-                                                            <rect key="frame" x="56" y="-8" width="432.5" height="21"/>
+                                                            <rect key="frame" x="56" y="-8" width="433" height="21"/>
                                                             <constraints>
                                                                 <constraint firstAttribute="height" constant="21" id="evy-3w-BYj"/>
                                                                 <constraint firstAttribute="height" relation="greaterThanOrEqual" constant="21" id="prv-iW-Wvs"/>

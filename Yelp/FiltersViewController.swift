@@ -48,13 +48,15 @@ class FiltersViewController: UIViewController, UITableViewDelegate, UITableViewD
         ConfigSection(
             header: "Distance",
             content: [
-                ConfigType.Dropdown(["Auto", "1 mi", "2 mi", "5 mi"]),
+                ConfigType.Dropdown(["Auto", "0.3 miles", "1 mile", "5 miles", "20 miles"]),
+//                ConfigType.Dropdown(["Auto": nil, "0.3 miles": 482, "1 mile": 1609, "5 miles": 8047, "20 miles": 32187]),
             ]
         ),
         ConfigSection(
             header: "Sort by",
             content: [
-                ConfigType.Dropdown(["Best Match", "Distance", "Highest rated"])
+                //Yelp API values: 0=Best matched (default), 1=Distance, 2=Highest Rated.
+                ConfigType.Dropdown(["Best Match", "Distance", "Rating"])//, "Most Reviewed"]) <== not implemented by Yelp API yet
             ]
         ),
         ConfigSection(
