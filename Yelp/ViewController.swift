@@ -63,9 +63,11 @@ class ViewController: UIViewController, UITableViewDelegate, UITableViewDataSour
     
     func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
         var cell = tableView.dequeueReusableCellWithIdentifier("RestaurantCell") as RestaurantTableViewCell
-        cell.restaurantName.text = "the title section \(indexPath)"
         let restaurant = restaurants[indexPath.row]
-        cell.restaurantName.text = String(indexPath.row + 1) + ". " + (restaurant["name"] as String)
+        let name = restaurant["name"] as String
+        cell.restaurantName.text = String(indexPath.row + 1) + ". " + name
+        // test auto layout
+//        cell.restaurantName.text = cell.restaurantName.text! + name + name
         if (restaurant["distance"] != nil) {
             cell.distance.text = restaurant["distance"] as String
         } else {
@@ -73,7 +75,6 @@ class ViewController: UIViewController, UITableViewDelegate, UITableViewDataSour
         }
         if (restaurant["rating"] != nil) {
             let rating = restaurant["rating"] as Int
-//            cell.ratings.text = "some stars"
             cell.ratings.text = String(rating) + "star(s)"
         } else {
             cell.ratings.text = "? stars"
@@ -86,12 +87,63 @@ class ViewController: UIViewController, UITableViewDelegate, UITableViewDataSour
         for word in address {
             strAddress += word
         }
-        println(strAddress)
         cell.address.text = strAddress
         var imageUrl = restaurant["image_url"] as String
         cell.restaurantImage.setImageWithURL(NSURL.URLWithString(imageUrl))
+        
+//        println(cell.restaurantType.frame.minY)
+//        println(cell.detailsView.frame.minY)
+        
         return cell as UITableViewCell
     }
 
+//    func tableView(tableView: UITableView, heightForRowAtIndexPath indexPath: NSIndexPath) -> CGFloat {
+//        var cell = tableView.dequeueReusableCellWithIdentifier("RestaurantCell") as RestaurantTableViewCell
+//        let restaurant = restaurants[indexPath.row]
+//        cell.restaurantName.text = String(indexPath.row + 1) + ". " + (restaurant["name"] as String)
+//        if (restaurant["distance"] != nil) {
+//            cell.distance.text = restaurant["distance"] as String
+//        } else {
+//            cell.distance.text = "? mi"
+//        }
+//        if (restaurant["rating"] != nil) {
+//            let rating = restaurant["rating"] as Int
+//            cell.ratings.text = String(rating) + "star(s)"
+//        } else {
+//            cell.ratings.text = "? stars"
+//        }
+//        let reviewCount = restaurant["review_count"] as Int
+//        cell.reviewCount.text =  String(reviewCount) + " review(s)"
+//        let location = restaurant["location"] as NSDictionary
+//        let address = location["address"] as [String]
+//        var strAddress = ""
+//        for word in address {
+//            strAddress += word
+//        }
+//        cell.address.text = strAddress
+//        var imageUrl = restaurant["image_url"] as String
+//        cell.restaurantImage.setImageWithURL(NSURL.URLWithString(imageUrl))
+//
+//        // layout bottom details view
+////        cell.detailsView.layoutSubviews()
+////        cell.detailsView.frame.size.height = cell.restaurantType.frame.maxY
+//        
+//        let size = cell.systemLayoutSizeFittingSize(tableView.frame.size)
+//        
+////        let size = cell.systemLayoutSizeFittingSize(tableView.frame.size, withHorizontalFittingPriority: UILayoutPriorityRequired, verticalFittingPriority: UILayoutPriorityFittingSizeLevel)
+//        let s = cell.systemLayoutSizeFittingSize(UILayoutFittingCompressedSize)
+//        
+////        cell.layoutSubviews()
+////        cell.frame.size.height = cell.detailsView.frame.maxY
+//
+////        println("type \(cell.restaurantType.frame.maxY)")
+////        println("cell \(cell.frame.height)")
+//        
+////        println(cell.frame.width)
+////        println("table size \(tableView.frame.size)")
+//        println(size)
+//        println(s)
+//        return 88
+//    }
 }
 

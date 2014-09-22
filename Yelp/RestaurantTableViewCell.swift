@@ -19,8 +19,8 @@ class RestaurantTableViewCell: UITableViewCell {
     @IBOutlet weak var restaurantType: UILabel!
     @IBOutlet weak var price: UILabel!
     
-    
-    
+    @IBOutlet weak var cellView: UIView!
+    @IBOutlet weak var detailsView: UIView!
     
     override func awakeFromNib() {
         super.awakeFromNib()
