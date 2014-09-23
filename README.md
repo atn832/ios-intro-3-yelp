@@ -2,7 +2,7 @@
 
 This is a demo application for displaying Yelp search results using the [Yelp API](http://www.yelp.com/developers/documentation/v2/search_api).
 
-Time spent: 8 hours spent so far
+Time spent: 11 hours spent in total
 
  * Search results page
    * [x] Table rows should be dynamic height according to the content height
