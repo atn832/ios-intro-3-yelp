@@ -38,13 +38,16 @@ class ViewController: UIViewController, UITableViewDelegate, UITableViewDataSour
         tableView.delegate = self
         tableView.dataSource = self
         tableView.rowHeight = UITableViewAutomaticDimension
-        tableView.estimatedRowHeight = CGFloat(105.0) // Does not work?...
+//        tableView.estimatedRowHeight = CGFloat(105.0) // Does not work?...
         
         search(nil, radius: nil, deals: nil)
     }
     
     func search(sort: YelpClient.Sort?, radius: Int?, deals: Bool?) {
         let term = searchField.text!
+        if (term.isEmpty) {
+            return
+        }
         client.searchWithTerm(term, sort: sort, radius: radius, deals: deals, success: { (operation: AFHTTPRequestOperation!, response: AnyObject!) -> Void in
 //            println(response)
             var errorValue: NSError? = nil
