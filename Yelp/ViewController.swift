@@ -110,8 +110,13 @@ class ViewController: UIViewController, UITableViewDelegate, UITableViewDataSour
         destinationViewController.delegate = self
     }
     
-    func setConfigViewController(controller: FiltersViewController, didFinishEnteringConfig: [String: Int?]) -> Void {
+    func setConfigViewController(controller: FiltersViewController, didFinishEnteringConfig: [String: Int?], searchString: String?) -> Void {
         println("set config", didFinishEnteringConfig)
+        
+        if let str = searchString {
+            searchField.text = str
+        }
+        
         let c = didFinishEnteringConfig
         var deals = false
         if let d = c["deals"] {

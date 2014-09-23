@@ -107,10 +107,10 @@ class FiltersViewController: UIViewController, UITableViewDelegate, UITableViewD
         if (delegate != nil) {
             // pass config back
             delegate.setConfigViewController(self, didFinishEnteringConfig: [
-                "sort": 1,
-                "radius": 1000,
-                "deals": 1
-                ])
+                "sort": sort,
+                "radius": radius,
+                "deals": deals
+                ], searchString: nil)
         }
         navigationController?.popViewControllerAnimated(true)
     }
@@ -241,6 +241,24 @@ class FiltersViewController: UIViewController, UITableViewDelegate, UITableViewD
         selected[section] = index
     }
     
+    var sort: Int! {
+        get {
+            return 1
+        }
+    }
+    
+    var radius: Int! {
+        get {
+            return 1000
+        }
+    }
+    
+    var deals: Int! {
+        get {
+            return 1
+        }
+    }
+    
     func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath) {
         // expand if dropdown
         let section = sections[indexPath.section]
@@ -258,8 +276,28 @@ class FiltersViewController: UIViewController, UITableViewDelegate, UITableViewD
                 setSelected(indexPath.section, index: indexPath.row)
             }
             tableView.reloadData()
+        case .Category(let options):
+            if (!isExpanded(indexPath.section) && indexPath.row == CategoryCount) {
+                // tapped See All
+                setExpanded(indexPath.section, isExpanded: true)
+                tableView.reloadData()
+            }
+            else {
+                // tapped a Category => pop view and search that string
+                if (delegate != nil) {
+                    let (label, value) = options[indexPath.row]
+                    
+                    // pass config back
+                    delegate.setConfigViewController(self, didFinishEnteringConfig: [
+                        "sort": sort,
+                        "radius": radius,
+                        "deals": deals,
+                        ], searchString: label)
+                }
+                navigationController?.popViewControllerAnimated(true)
+            }
         default:
-            println()
+            return
         }
     }
 }
