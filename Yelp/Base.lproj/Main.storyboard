@@ -277,13 +277,31 @@
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="g6I-xC-Tcn" id="4oI-Z0-ojw">
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
-                                                <pickerView contentMode="scaleToFill" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="GRP-4a-9Dm">
-                                                    <rect key="frame" x="-211" y="-59" width="600" height="162"/>
-                                                </pickerView>
+                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="1 mile" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="dwX-su-by6">
+                                                    <rect key="frame" x="8" y="11" width="549" height="21"/>
+                                                    <fontDescription key="fontDescription" type="boldSystem" pointSize="17"/>
+                                                    <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
+                                                    <nil key="highlightedColor"/>
+                                                </label>
+                                                <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="Arrow" translatesAutoresizingMaskIntoConstraints="NO" id="5F9-TK-ahb">
+                                                    <rect key="frame" x="565" y="10" width="27" height="22"/>
+                                                    <constraints>
+                                                        <constraint firstAttribute="width" constant="27" id="rIj-RM-V3b"/>
+                                                    </constraints>
+                                                </imageView>
                                             </subviews>
+                                            <constraints>
+                                                <constraint firstItem="5F9-TK-ahb" firstAttribute="trailing" secondItem="4oI-Z0-ojw" secondAttribute="trailingMargin" id="0z2-EK-WeY"/>
+                                                <constraint firstAttribute="bottomMargin" secondItem="5F9-TK-ahb" secondAttribute="bottom" constant="4" id="Dgq-2G-RuS"/>
+                                                <constraint firstAttribute="bottomMargin" secondItem="dwX-su-by6" secondAttribute="bottom" constant="4" id="Hmv-OZ-bqk"/>
+                                                <constraint firstItem="dwX-su-by6" firstAttribute="leading" secondItem="4oI-Z0-ojw" secondAttribute="leadingMargin" id="RC2-uI-DZj"/>
+                                                <constraint firstItem="5F9-TK-ahb" firstAttribute="leading" secondItem="dwX-su-by6" secondAttribute="trailing" constant="8" id="RHI-0k-OZ3"/>
+                                                <constraint firstItem="dwX-su-by6" firstAttribute="top" secondItem="4oI-Z0-ojw" secondAttribute="topMargin" constant="3" id="bvV-kh-7Wf"/>
+                                                <constraint firstItem="5F9-TK-ahb" firstAttribute="top" secondItem="4oI-Z0-ojw" secondAttribute="topMargin" constant="2" id="uXw-fm-7aC"/>
+                                            </constraints>
                                         </tableViewCellContentView>
                                         <connections>
-                                            <outlet property="optionDropdown" destination="GRP-4a-9Dm" id="Ojx-G1-HV4"/>
+                                            <outlet property="optionDropdown" destination="dwX-su-by6" id="YrC-2v-J0d"/>
                                         </connections>
                                     </tableViewCell>
                                 </prototypes>
@@ -291,7 +309,7 @@
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                         <constraints>
-                            <constraint firstItem="B72-qY-jNT" firstAttribute="top" secondItem="a9w-Jf-9tD" secondAttribute="top" id="0P1-kN-l1t"/>
+                            <constraint firstItem="a9w-Jf-9tD" firstAttribute="top" secondItem="B72-qY-jNT" secondAttribute="top" id="0P1-kN-l1t"/>
                             <constraint firstItem="B72-qY-jNT" firstAttribute="leading" secondItem="YhQ-Kd-wqY" secondAttribute="leadingMargin" constant="-16" id="3Xm-aL-Mii"/>
                             <constraint firstItem="hY0-mg-DOI" firstAttribute="top" secondItem="B72-qY-jNT" secondAttribute="bottom" id="Zbb-re-co7"/>
                             <constraint firstAttribute="trailingMargin" secondItem="B72-qY-jNT" secondAttribute="trailing" constant="-16" id="gf4-0X-Q9s"/>
@@ -324,4 +342,7 @@
             <point key="canvasLocation" x="140" y="132"/>
         </scene>
     </scenes>
+    <resources>
+        <image name="Arrow" width="8" height="6"/>
+    </resources>
 </document>

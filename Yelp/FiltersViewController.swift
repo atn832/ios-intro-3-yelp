@@ -18,8 +18,7 @@ class FiltersViewController: UIViewController, UITableViewDelegate, UITableViewD
     enum ConfigType {
         case Segment([String])
         case Switch(String)
-//        case Dropdown([String])
-        case Dropdown([String: Int?])
+        case Dropdown([(String, Int?)], Int, Bool)
     }
     
     struct ConfigSection {
@@ -50,14 +49,14 @@ class FiltersViewController: UIViewController, UITableViewDelegate, UITableViewD
             header: "Distance",
             content: [
 //                ConfigType.Dropdown(["Auto", "0.3 miles", "1 mile", "5 miles", "20 miles"]),
-                ConfigType.Dropdown(["Auto": nil, "0.3 miles": 482, "1 mile": 1609, "5 miles": 8047, "20 miles": 32187])
+                ConfigType.Dropdown([("Auto", nil), ("0.3 miles", 482), ("1 mile", 1609), ("5 miles", 8047), ("20 miles", 32187)], 1, true)
             ]
         ),
         ConfigSection(
             header: "Sort by",
             content: [
                 //Yelp API values: 0=Best matched (default), 1=Distance, 2=Highest Rated.
-                ConfigType.Dropdown(["Best Match": 0, "Distance": 1, "Rating": 2])//, "Most Reviewed"]) <== not implemented by Yelp API yet
+                ConfigType.Dropdown([("Best Match", 0), ("Distance", 1), ("Rating", 2)], 0, false)//, "Most Reviewed"]) <== not implemented by Yelp API yet
             ]
         ),
         ConfigSection(
@@ -95,6 +94,20 @@ class FiltersViewController: UIViewController, UITableViewDelegate, UITableViewD
     }
     
     func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+        let content = sections[section].content
+        if (content.count == 1) {
+            switch content[0] {
+            case let .Dropdown(options, selIndex, expanded):
+                    if (expanded) {
+                        return options.count
+                    }
+                    else {
+                        return 1
+                    }
+            default:
+                return 1
+            }
+        }
         return sections[section].content.count
     }
     
@@ -103,11 +116,32 @@ class FiltersViewController: UIViewController, UITableViewDelegate, UITableViewD
     }
     
     func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
-        let item = sections[indexPath.section].content[indexPath.row]
+        println("\(indexPath.section),\(indexPath.row)")
+        
+        let section = sections[indexPath.section]
+        var item: ConfigType!
+        switch section.content[0] {
+        case .Dropdown(let options, let selIndex, let expanded):
+            item = section.content[0]
+        default:
+            item = section.content[indexPath.row]
+        }
         var cell: UITableViewCell
-        switch (item) {
-        case .Dropdown(let values):
-            cell = tableView.dequeueReusableCellWithIdentifier("Dropdown") as UITableViewCell
+        switch (item!) {
+        case .Dropdown(let options, let selIndex, let expanded):
+            if (expanded) {
+                cell = tableView.dequeueReusableCellWithIdentifier("Switch") as UITableViewCell
+                let (label, value) = options[indexPath.row]
+                (cell as SwitchTableViewCell).optionName.text = label
+                (cell as SwitchTableViewCell).optionSwitch.on = selIndex == indexPath.row
+                (cell as SwitchTableViewCell).optionConfig.text = ""
+            }
+            else {
+                cell = tableView.dequeueReusableCellWithIdentifier("Dropdown") as UITableViewCell
+                // return selected item
+                let (label, value) = options[selIndex]
+                (cell as DropdownTableViewCell).optionDropdown.text = label
+            }
         case .Segment(let values):
             cell = tableView.dequeueReusableCellWithIdentifier("Segment") as UITableViewCell
             var i = 0

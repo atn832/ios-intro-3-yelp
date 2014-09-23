@@ -9,7 +9,7 @@
 import UIKit
 
 class DropdownTableViewCell: UITableViewCell {
-    @IBOutlet weak var optionDropdown: UIPickerView!
+    @IBOutlet weak var optionDropdown: UILabel!
 
     override func awakeFromNib() {
         super.awakeFromNib()
