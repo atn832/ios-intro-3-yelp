@@ -291,7 +291,7 @@
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                         <constraints>
-                            <constraint firstItem="B72-qY-jNT" firstAttribute="top" secondItem="a9w-Jf-9tD" secondAttribute="bottom" id="0P1-kN-l1t"/>
+                            <constraint firstItem="B72-qY-jNT" firstAttribute="top" secondItem="a9w-Jf-9tD" secondAttribute="top" id="0P1-kN-l1t"/>
                             <constraint firstItem="B72-qY-jNT" firstAttribute="leading" secondItem="YhQ-Kd-wqY" secondAttribute="leadingMargin" constant="-16" id="3Xm-aL-Mii"/>
                             <constraint firstItem="hY0-mg-DOI" firstAttribute="top" secondItem="B72-qY-jNT" secondAttribute="bottom" id="Zbb-re-co7"/>
                             <constraint firstAttribute="trailingMargin" secondItem="B72-qY-jNT" secondAttribute="trailing" constant="-16" id="gf4-0X-Q9s"/>
