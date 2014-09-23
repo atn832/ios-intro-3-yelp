@@ -45,7 +45,7 @@ class ViewController: UIViewController, UITableViewDelegate, UITableViewDataSour
     func search(sort: YelpClient.Sort?, radius: Int?, deals: Bool?) {
         let term = searchField.text!
         client.searchWithTerm(term, sort: sort, radius: radius, deals: deals, success: { (operation: AFHTTPRequestOperation!, response: AnyObject!) -> Void in
-            println(response)
+//            println(response)
             var errorValue: NSError? = nil
             
             if (response != nil) {
@@ -57,6 +57,11 @@ class ViewController: UIViewController, UITableViewDelegate, UITableViewDataSour
             }) { (operation: AFHTTPRequestOperation!, error: NSError!) -> Void in
                 println(error)
         }
+    }
+    
+    override func viewWillAppear(animated: Bool) {
+        // fix as reported by Taomin, or the table will not auto size properly... Still not fixed
+        tableView.reloadData()
     }
     
     override func didReceiveMemoryWarning() {

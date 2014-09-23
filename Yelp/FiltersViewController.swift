@@ -16,6 +16,10 @@ class FiltersViewController: UIViewController, UITableViewDelegate, UITableViewD
     
     // show 3 categories before showing See All
     let CategoryCount = 3
+    let DistanceSectionIndex = 2
+    let SortSectionIndex = 3
+    let DealSectionIndex = 1
+    let DealRowIndex = 2
     
     // using enums triggers compilation error:
     // FiltersViewController.ConfigType is not bridged to Objective-C
@@ -28,6 +32,7 @@ class FiltersViewController: UIViewController, UITableViewDelegate, UITableViewD
     }
     
     struct ConfigSection {
+        // dummy data. let it infer types
         var header = "Title"
         var content = [
             ConfigType.Switch("Open Now"),
@@ -89,7 +94,7 @@ class FiltersViewController: UIViewController, UITableViewDelegate, UITableViewD
     ]
     
     var expanded: [Int: Bool] = [:]
-    var selected = [2: 2]
+    var selected = [2: 0] // category => index
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -103,7 +108,6 @@ class FiltersViewController: UIViewController, UITableViewDelegate, UITableViewD
     }
     
     @IBAction func onSearch(sender: AnyObject) {
-        println("Search")
         if (delegate != nil) {
             // pass config back
             delegate.setConfigViewController(self, didFinishEnteringConfig: [
@@ -212,7 +216,11 @@ class FiltersViewController: UIViewController, UITableViewDelegate, UITableViewD
             cell = tableView.dequeueReusableCellWithIdentifier("Switch") as UITableViewCell
             (cell as SwitchTableViewCell).optionName.text = title
             (cell as SwitchTableViewCell).optionConfig.text = ""
-            
+            // Hack to make deals work. Note: click the item, not the switch
+            if indexPath.section == DealSectionIndex && indexPath.row == DealRowIndex {
+                println("dal selected\(dealsSelected)")
+                (cell as SwitchTableViewCell).optionSwitch.on = dealsSelected
+            }
         }
         return cell as UITableViewCell
     }
@@ -243,19 +251,48 @@ class FiltersViewController: UIViewController, UITableViewDelegate, UITableViewD
     
     var sort: Int! {
         get {
-            return 1
+            let section = sections[SortSectionIndex]
+            let content = section.content
+            var sort: Int!
+            switch content[0] {
+            case .Dropdown(let options):
+                let option = options[getSelected(SortSectionIndex)]
+                let (label, s) = option
+                sort = s
+            default:
+                // should never happen
+                sort = 0
+            }
+            return sort
         }
     }
     
     var radius: Int! {
         get {
-            return 1000
+            let section = sections[DistanceSectionIndex]
+            let content = section.content
+            var distance: Int!
+            switch content[0] {
+            case .Dropdown(let options):
+                let option = options[getSelected(DistanceSectionIndex)]
+                let (label, d) = option
+                distance = d
+            default:
+                // should never happen
+                distance = 0
+            }
+            return distance
         }
     }
     
+    var dealsSelected = false
+    
     var deals: Int! {
         get {
-            return 1
+            if (dealsSelected) {
+                return 1
+            }
+            return 0
         }
     }
     
@@ -297,6 +334,11 @@ class FiltersViewController: UIViewController, UITableViewDelegate, UITableViewD
                 navigationController?.popViewControllerAnimated(true)
             }
         default:
+            if indexPath.section == DealSectionIndex && indexPath.row == DealRowIndex {
+                println("deal!")
+                dealsSelected = !dealsSelected
+                tableView.reloadData()
+            }
             return
         }
     }
