@@ -167,24 +167,24 @@
                                 </connections>
                             </button>
                         </barButtonItem>
-                        <textField key="titleView" opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" text="Thai" borderStyle="roundedRect" minimumFontSize="17" id="JWf-Dh-sC0">
-                            <rect key="frame" x="180" y="7" width="240" height="30"/>
+                        <textField key="titleView" opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" text="Thai" borderStyle="roundedRect" minimumFontSize="17" id="UUY-6x-w9B">
+                            <rect key="frame" x="155" y="7" width="429" height="30"/>
                             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                             <fontDescription key="fontDescription" type="system" pointSize="14"/>
                             <textInputTraits key="textInputTraits"/>
                             <connections>
-                                <action selector="editingChanged:" destination="vXZ-lx-hvc" eventType="editingChanged" id="O9D-0R-sOr"/>
+                                <action selector="editingChanged:" destination="vXZ-lx-hvc" eventType="editingChanged" id="aKV-9o-DaR"/>
                             </connections>
                         </textField>
                     </navigationItem>
                     <connections>
-                        <outlet property="searchField" destination="JWf-Dh-sC0" id="uxm-EN-Tsv"/>
+                        <outlet property="searchField" destination="UUY-6x-w9B" id="say-S5-hIM"/>
                         <outlet property="tableView" destination="BlL-Gx-I7k" id="ddx-fi-RE4"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="x5A-6p-PRh" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="952" y="132"/>
+            <point key="canvasLocation" x="885" y="132"/>
         </scene>
         <!--Filters View Controller-->
         <scene sceneID="RV1-iJ-WrH">

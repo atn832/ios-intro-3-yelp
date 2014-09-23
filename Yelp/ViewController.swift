@@ -10,6 +10,7 @@ import UIKit
 
 class ViewController: UIViewController, UITableViewDelegate, UITableViewDataSource, ViewControllerFilterDelegate {
     var client: YelpClient!
+
     @IBOutlet weak var searchField: UITextField!
     
     // You can register for Yelp API keys here: http://www.yelp.com/developers/manage_api_keys
