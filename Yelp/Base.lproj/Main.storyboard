@@ -169,7 +169,7 @@
                                     <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
                                 </state>
                                 <connections>
-                                    <segue destination="Ipy-Ab-dSg" kind="show" id="5ko-4n-W6v"/>
+                                    <segue destination="Ipy-Ab-dSg" kind="show" id="O0L-hy-6C8"/>
                                 </connections>
                             </button>
                         </barButtonItem>
@@ -322,13 +322,39 @@
                             <constraint firstAttribute="trailingMargin" secondItem="B72-qY-jNT" secondAttribute="trailing" constant="-16" id="gf4-0X-Q9s"/>
                         </constraints>
                     </view>
+                    <navigationItem key="navigationItem" id="tgz-8t-VrM">
+                        <barButtonItem key="leftBarButtonItem" style="plain" id="OfB-h5-SJJ">
+                            <button key="customView" opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" id="j7G-od-ezv">
+                                <rect key="frame" x="-23" y="-15" width="133" height="30"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <state key="normal" title="Cancel">
+                                    <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
+                                </state>
+                                <connections>
+                                    <action selector="onCancel:" destination="Ipy-Ab-dSg" eventType="touchUpInside" id="C4x-3n-U2W"/>
+                                </connections>
+                            </button>
+                        </barButtonItem>
+                        <barButtonItem key="rightBarButtonItem" style="plain" id="TBN-DL-fvH">
+                            <button key="customView" opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" id="Qk0-0J-HGH">
+                                <rect key="frame" x="-23" y="-15" width="133" height="30"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <state key="normal" title="Search">
+                                    <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
+                                </state>
+                                <connections>
+                                    <action selector="onSearch:" destination="Ipy-Ab-dSg" eventType="touchUpInside" id="GL6-bm-zyV"/>
+                                </connections>
+                            </button>
+                        </barButtonItem>
+                    </navigationItem>
                     <connections>
                         <outlet property="tableView" destination="B72-qY-jNT" id="RNv-xr-p8r"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="bBW-w5-1RI" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="1610" y="132"/>
+            <point key="canvasLocation" x="1590" y="132"/>
         </scene>
         <!--Navigation Controller-->
         <scene sceneID="qry-F6-0rl">

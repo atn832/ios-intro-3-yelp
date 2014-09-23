@@ -78,15 +78,21 @@ class FiltersViewController: UIViewController, UITableViewDelegate, UITableViewD
         tableView.dataSource = self
     }
     
-    override func viewWillDisappear(animated: Bool) {
-        if (delegate == nil) {
-            return
-        }
-        delegate.setConfigViewController(self, didFinishEnteringConfig: [
+    @IBAction func onCancel(sender: AnyObject) {
+        navigationController?.popViewControllerAnimated(true)
+    }
+    
+    @IBAction func onSearch(sender: AnyObject) {
+        println("Search")
+        if (delegate != nil) {
+            // pass config back
+            delegate.setConfigViewController(self, didFinishEnteringConfig: [
                 "sort": 1,
                 "radius": 1000,
                 "deals": 1
-            ])
+                ])
+        }
+        navigationController?.popViewControllerAnimated(true)
     }
 
     override func didReceiveMemoryWarning() {

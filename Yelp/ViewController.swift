@@ -155,6 +155,9 @@ class ViewController: UIViewController, UITableViewDelegate, UITableViewDataSour
 //    }
     
     override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
+//        let navController = segue.destinationViewController as UINavigationController
+//        let viewC = navController.viewControllers[0] as FiltersViewController
+//        viewC.delegate = self
         var destinationViewController = segue.destinationViewController as FiltersViewController
         destinationViewController.delegate = self
     }
