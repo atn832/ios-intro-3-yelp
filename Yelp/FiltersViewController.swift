@@ -12,6 +12,11 @@ class FiltersViewController: UIViewController, UITableViewDelegate, UITableViewD
     @IBOutlet weak var tableView: UITableView!
     var delegate: ViewControllerFilterDelegate!
     
+    // TODO: make isExpanded work for any config type
+    
+    // show 3 categories before showing See All
+    let CategoryCount = 3
+    
     // using enums triggers compilation error:
     // FiltersViewController.ConfigType is not bridged to Objective-C
     // will use strings instead
@@ -19,6 +24,7 @@ class FiltersViewController: UIViewController, UITableViewDelegate, UITableViewD
         case Segment([String])
         case Switch(String)
         case Dropdown([(String, Int?)])
+        case Category([(String, String)])
     }
     
     struct ConfigSection {
@@ -64,6 +70,20 @@ class FiltersViewController: UIViewController, UITableViewDelegate, UITableViewD
                 ConfigType.Switch("Take-out"),
                 ConfigType.Switch("Good for Groups"),
                 ConfigType.Switch("Take Reservations")
+            ]
+        ),
+        ConfigSection(
+            header: "Categories",
+            content: [
+                ConfigType.Category([
+                    ("Restaurants", "restaurants"),
+                    ("Bars", "bars"),
+                    ("Nightlife", "nightlife"),
+                    ("Coffee & Tea", "coffee"),
+                    ("Gas & Service Stations", "servicestations"),
+                    ("Drugstores", "drugstores"),
+                    ("Shopping", "shopping"),
+                ])
             ]
         )
     ]
@@ -116,6 +136,14 @@ class FiltersViewController: UIViewController, UITableViewDelegate, UITableViewD
                     else {
                         return 1
                     }
+            case let .Category(options):
+                if (isExpanded(section)) {
+                    return options.count
+                }
+                else {
+                    // TODO: use max(categorycount, options.count) and have it be expandable or not
+                    return CategoryCount + 1 // one for See All
+                }
             default:
                 return 1
             }
@@ -132,6 +160,8 @@ class FiltersViewController: UIViewController, UITableViewDelegate, UITableViewD
         var item: ConfigType!
         switch section.content[0] {
         case .Dropdown(let options):
+            item = section.content[0]
+        case .Category(let options):
             item = section.content[0]
         default:
             item = section.content[indexPath.row]
@@ -152,6 +182,24 @@ class FiltersViewController: UIViewController, UITableViewDelegate, UITableViewD
                 // return selected item
                 let (label, value) = options[selIndex]
                 (cell as DropdownTableViewCell).optionDropdown.text = label
+            }
+        case .Category(let options):
+            if (isExpanded(indexPath.section)) {
+                // show all
+                cell = tableView.dequeueReusableCellWithIdentifier("Category") as UITableViewCell
+                let (label, value) = options[indexPath.row]
+                (cell as CategoryTableViewCell).categoryName.text = label
+            }
+            else {
+                if (indexPath.row == CategoryCount) {
+                    // show See All
+                    cell = tableView.dequeueReusableCellWithIdentifier("More") as UITableViewCell
+                }
+                else {
+                    let (label, value) = options[indexPath.row]
+                    cell = tableView.dequeueReusableCellWithIdentifier("Category") as UITableViewCell
+                    (cell as CategoryTableViewCell).categoryName.text = label
+                }
             }
         case .Segment(let values):
             cell = tableView.dequeueReusableCellWithIdentifier("Segment") as UITableViewCell

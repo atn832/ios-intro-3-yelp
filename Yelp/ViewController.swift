@@ -37,6 +37,7 @@ class ViewController: UIViewController, UITableViewDelegate, UITableViewDataSour
         tableView.delegate = self
         tableView.dataSource = self
         tableView.rowHeight = UITableViewAutomaticDimension
+        tableView.estimatedRowHeight = CGFloat(105.0) // Does not work?...
         
         search(nil, radius: nil, deals: nil)
     }
