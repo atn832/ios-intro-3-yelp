@@ -10,6 +10,7 @@ import UIKit
 
 class ViewController: UIViewController, UITableViewDelegate, UITableViewDataSource, ViewControllerFilterDelegate {
     var client: YelpClient!
+    @IBOutlet weak var searchField: UITextField!
     
     // You can register for Yelp API keys here: http://www.yelp.com/developers/manage_api_keys
     let yelpConsumerKey = "vxKwwcR_NMQ7WaEiQBK_CA"
@@ -29,23 +30,28 @@ class ViewController: UIViewController, UITableViewDelegate, UITableViewDataSour
         // Do any additional setup after loading the view, typically from a nib.
         client = YelpClient(consumerKey: yelpConsumerKey, consumerSecret: yelpConsumerSecret, accessToken: yelpToken, accessSecret: yelpTokenSecret)
         
-//        client.searchWithTerm("Thai", sort: nil, radius: 10, deals: true, success: { (operation: AFHTTPRequestOperation!, response: AnyObject!) -> Void in
-        client.searchWithTerm("Thai", sort: nil, radius: nil, deals: nil, success: { (operation: AFHTTPRequestOperation!, response: AnyObject!) -> Void in
+        tableView.delegate = self
+        tableView.dataSource = self
+//        tableView.rowHeight = UITableViewAutomaticDimension
+        
+        search(nil, radius: nil, deals: nil)
+    }
+    
+    func search(sort: YelpClient.Sort?, radius: Int?, deals: Bool?) {
+        let term = searchField.text!
+        client.searchWithTerm(term, sort: sort, radius: radius, deals: deals, success: { (operation: AFHTTPRequestOperation!, response: AnyObject!) -> Void in
             println(response)
             var errorValue: NSError? = nil
             
             if (response != nil) {
                 self.restaurants = (response as NSDictionary)["businesses"] as [NSDictionary]
             }
-//            self.networkErrorLabel.hidden = data != nil
+            //            self.networkErrorLabel.hidden = data != nil
             self.tableView.reloadData()
-
-        }) { (operation: AFHTTPRequestOperation!, error: NSError!) -> Void in
-            println(error)
+            
+            }) { (operation: AFHTTPRequestOperation!, error: NSError!) -> Void in
+                println(error)
         }
-        tableView.delegate = self
-        tableView.dataSource = self
-//        tableView.rowHeight = UITableViewAutomaticDimension
     }
     
     override func didReceiveMemoryWarning() {
@@ -155,6 +161,16 @@ class ViewController: UIViewController, UITableViewDelegate, UITableViewDataSour
     
     func setConfigViewController(controller: FiltersViewController, didFinishEnteringConfig: [String: Int?]) -> Void {
         println("set config", didFinishEnteringConfig)
+        let c = didFinishEnteringConfig
+        var deals = false
+        if let d = c["deals"] {
+            deals = d == 1
+        }
+        var sort: YelpClient.Sort! = nil
+        if let s = c["sort"] {
+            sort = YelpClient.Sort.fromRaw(s!)
+        }
+        search(sort, radius: c["radius"]!, deals: deals)
     }
 }
 

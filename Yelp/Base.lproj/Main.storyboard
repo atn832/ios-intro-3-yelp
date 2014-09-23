@@ -173,8 +173,15 @@
                                 </connections>
                             </button>
                         </barButtonItem>
+                        <textField key="titleView" opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" text="Thai" borderStyle="roundedRect" minimumFontSize="17" id="JWf-Dh-sC0">
+                            <rect key="frame" x="180" y="7" width="240" height="30"/>
+                            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                            <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                            <textInputTraits key="textInputTraits"/>
+                        </textField>
                     </navigationItem>
                     <connections>
+                        <outlet property="searchField" destination="JWf-Dh-sC0" id="uxm-EN-Tsv"/>
                         <outlet property="tableView" destination="BlL-Gx-I7k" id="ddx-fi-RE4"/>
                     </connections>
                 </viewController>

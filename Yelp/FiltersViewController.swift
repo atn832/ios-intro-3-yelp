@@ -68,7 +68,7 @@ class FiltersViewController: UIViewController, UITableViewDelegate, UITableViewD
         )
     ]
     
-    var expanded = [2: true]
+    var expanded: [Int: Bool] = [:]
     var selected = [2: 2]
     
     override func viewDidLoad() {
