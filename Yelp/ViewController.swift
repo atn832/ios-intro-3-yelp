@@ -153,7 +153,7 @@ class ViewController: UIViewController, UITableViewDelegate, UITableViewDataSour
         destinationViewController.delegate = self
     }
     
-    func setConfigViewController(controller: FiltersViewController, didFinishEnteringConfig: String) -> Void {
+    func setConfigViewController(controller: FiltersViewController, didFinishEnteringConfig: [String: Int?]) -> Void {
         println("set config", didFinishEnteringConfig)
     }
 }

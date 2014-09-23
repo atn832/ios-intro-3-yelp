@@ -9,5 +9,5 @@
 import Foundation
 
 protocol ViewControllerFilterDelegate {
-    func setConfigViewController(controller: FiltersViewController, didFinishEnteringConfig: String) -> Void
+    func setConfigViewController(controller: FiltersViewController, didFinishEnteringConfig: [String: Int?]) -> Void
 }

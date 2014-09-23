@@ -18,7 +18,7 @@ class FiltersViewController: UIViewController, UITableViewDelegate, UITableViewD
     enum ConfigType {
         case Segment([String])
         case Switch(String)
-        case Dropdown([(String, Int?)], Int, Bool)
+        case Dropdown([(String, Int?)])
     }
     
     struct ConfigSection {
@@ -48,15 +48,14 @@ class FiltersViewController: UIViewController, UITableViewDelegate, UITableViewD
         ConfigSection(
             header: "Distance",
             content: [
-//                ConfigType.Dropdown(["Auto", "0.3 miles", "1 mile", "5 miles", "20 miles"]),
-                ConfigType.Dropdown([("Auto", nil), ("0.3 miles", 482), ("1 mile", 1609), ("5 miles", 8047), ("20 miles", 32187)], 1, true)
+                ConfigType.Dropdown([("Auto", nil), ("0.3 miles", 482), ("1 mile", 1609), ("5 miles", 8047), ("20 miles", 32187)])
             ]
         ),
         ConfigSection(
             header: "Sort by",
             content: [
                 //Yelp API values: 0=Best matched (default), 1=Distance, 2=Highest Rated.
-                ConfigType.Dropdown([("Best Match", 0), ("Distance", 1), ("Rating", 2)], 0, false)//, "Most Reviewed"]) <== not implemented by Yelp API yet
+                ConfigType.Dropdown([("Best Match", 0), ("Distance", 1), ("Rating", 2)])//, "Most Reviewed"]) <== not implemented by Yelp API yet
             ]
         ),
         ConfigSection(
@@ -69,6 +68,9 @@ class FiltersViewController: UIViewController, UITableViewDelegate, UITableViewD
         )
     ]
     
+    var expanded = [2: true]
+    var selected = [2: 2]
+    
     override func viewDidLoad() {
         super.viewDidLoad()
 
@@ -80,7 +82,11 @@ class FiltersViewController: UIViewController, UITableViewDelegate, UITableViewD
         if (delegate == nil) {
             return
         }
-        delegate.setConfigViewController(self, didFinishEnteringConfig: "hello")
+        delegate.setConfigViewController(self, didFinishEnteringConfig: [
+                "sort": 1,
+                "radius": 1000,
+                "deals": 1
+            ])
     }
 
     override func didReceiveMemoryWarning() {
@@ -97,8 +103,8 @@ class FiltersViewController: UIViewController, UITableViewDelegate, UITableViewD
         let content = sections[section].content
         if (content.count == 1) {
             switch content[0] {
-            case let .Dropdown(options, selIndex, expanded):
-                    if (expanded) {
+            case let .Dropdown(options):
+                    if (isExpanded(section)) {
                         return options.count
                     }
                     else {
@@ -116,20 +122,19 @@ class FiltersViewController: UIViewController, UITableViewDelegate, UITableViewD
     }
     
     func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
-        println("\(indexPath.section),\(indexPath.row)")
-        
         let section = sections[indexPath.section]
         var item: ConfigType!
         switch section.content[0] {
-        case .Dropdown(let options, let selIndex, let expanded):
+        case .Dropdown(let options):
             item = section.content[0]
         default:
             item = section.content[indexPath.row]
         }
         var cell: UITableViewCell
         switch (item!) {
-        case .Dropdown(let options, let selIndex, let expanded):
-            if (expanded) {
+        case .Dropdown(let options):
+            let selIndex = getSelected(indexPath.section)
+            if (isExpanded(indexPath.section)) {
                 cell = tableView.dequeueReusableCellWithIdentifier("Switch") as UITableViewCell
                 let (label, value) = options[indexPath.row]
                 (cell as SwitchTableViewCell).optionName.text = label
@@ -157,5 +162,50 @@ class FiltersViewController: UIViewController, UITableViewDelegate, UITableViewD
         }
         return cell as UITableViewCell
     }
-
+    // ideally, would save this in a struct... or use getter/setters
+    func isExpanded(section: Int) -> Bool {
+        var exp = false
+        if (expanded[section] != nil) {
+            exp = expanded[section]!.boolValue
+        }
+        return exp
+    }
+    
+    func setExpanded(section: Int, isExpanded: Bool) {
+        expanded[section] = isExpanded
+    }
+    
+    func getSelected(section: Int) -> Int {
+        var index = 0
+        if (selected[section] != nil) {
+            index = selected[section]!
+        }
+        return index
+    }
+    
+    func setSelected(section: Int, index: Int) {
+        selected[section] = index
+    }
+    
+    func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath) {
+        // expand if dropdown
+        let section = sections[indexPath.section]
+        let item = section.content[0]
+        switch (item) {
+        case .Dropdown(let options):
+            if (!isExpanded(indexPath.section)) {
+                // expand
+                // could not modify section, even when it was a var... so using getter setters and a dictionary instead
+                setExpanded(indexPath.section, isExpanded: true)
+            }
+            else {
+                // select and collapse
+                setExpanded(indexPath.section, isExpanded: false)
+                setSelected(indexPath.section, index: indexPath.row)
+            }
+            tableView.reloadData()
+        default:
+            println()
+        }
+    }
 }
