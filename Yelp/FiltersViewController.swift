@@ -18,7 +18,8 @@ class FiltersViewController: UIViewController, UITableViewDelegate, UITableViewD
     enum ConfigType {
         case Segment([String])
         case Switch(String)
-        case Dropdown([String])
+//        case Dropdown([String])
+        case Dropdown([String: Int?])
     }
     
     struct ConfigSection {
@@ -48,15 +49,15 @@ class FiltersViewController: UIViewController, UITableViewDelegate, UITableViewD
         ConfigSection(
             header: "Distance",
             content: [
-                ConfigType.Dropdown(["Auto", "0.3 miles", "1 mile", "5 miles", "20 miles"]),
-//                ConfigType.Dropdown(["Auto": nil, "0.3 miles": 482, "1 mile": 1609, "5 miles": 8047, "20 miles": 32187]),
+//                ConfigType.Dropdown(["Auto", "0.3 miles", "1 mile", "5 miles", "20 miles"]),
+                ConfigType.Dropdown(["Auto": nil, "0.3 miles": 482, "1 mile": 1609, "5 miles": 8047, "20 miles": 32187])
             ]
         ),
         ConfigSection(
             header: "Sort by",
             content: [
                 //Yelp API values: 0=Best matched (default), 1=Distance, 2=Highest Rated.
-                ConfigType.Dropdown(["Best Match", "Distance", "Rating"])//, "Most Reviewed"]) <== not implemented by Yelp API yet
+                ConfigType.Dropdown(["Best Match": 0, "Distance": 1, "Rating": 2])//, "Most Reviewed"]) <== not implemented by Yelp API yet
             ]
         ),
         ConfigSection(
